@@ -10,7 +10,7 @@ const QuestionSchema = new mongoose.Schema({
     created_at: String,
     text: String
   }],
-  vote: Number
+  votes: Number
 });
 
 const Question = mongoose.model('Question', QuestionSchema);
