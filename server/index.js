@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const Question = require('../database/question.js');
 const app = express();
 
 const port = 1337;
@@ -9,8 +10,16 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send('Server');
+app.get('/api/questions', (req, res) => {
+  Question.find()
+    .then(data => res.send(data))
+    .catch(err => console.log(err));
+});
+
+app.patch('/api/questions/:id/question', (req, res) => {
+  Question.findOneAndUpdate({question_id: Number(req.params.id)}, {$inc: {votes: 1}})
+    .then(data => res.send(data))
+    .catch(err => console.log(err));
 });
 
 app.listen(port, (req, res) => {
