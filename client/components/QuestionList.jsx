@@ -19,7 +19,10 @@ class QuestionList extends React.Component {
         <div className='question'>{question.question}</div>
         <label id='answer'>Answer: </label>
         <div>{answerRend.map(answer => <AnswerList key={answer.user_id} answer={answer} />)}</div>
-        <p id='see'>See more answers ({answers.length})</p>
+        <div className='hat'>
+          <p className='arrow'>&lsaquo;</p>
+          <p className='see'>See more answers ({answers.length})</p>
+        </div>
         <div className='votes'>
           <button className='upvote'></button>
           <span>{question.votes}</span>

@@ -6,18 +6,32 @@ body {
   font-weight: bold;
 }
 
-.question:hover, #see:hover {
+.question:hover, .see:hover {
   cursor: pointer;
   text-decoration: underline;
   color: orange;
 }
 
-.question, #see {
+.question, .see {
   color: rgb(24, 114, 156);
+}
+
+.see {
+  margin-left: 5px;
+}
+
+.arrow {
+  transform: rotate(-90deg);
+  color: rgb(99, 96, 96);
+}
+
+.hat {
+  display: flex;
 }
 
 .search {
   height: 25px;
+  background: ;
   width: 100%;
 }
 
@@ -29,10 +43,15 @@ button:hover {
   cursor: pointer;
 }
 
+.seeQuests {
+  height: 30px;
+}
+
 .downvote {
   padding: 0;
   width: 0;
   height: 0;
+  margin: 5px;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-top: 15px solid rgb(99, 96, 96);
@@ -44,6 +63,7 @@ button:hover {
   padding: 0;
 	width: 0;
   height: 0;
+  margin: 5px;
   border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
   border-bottom: 15px solid rgb(99, 96, 96);
@@ -53,7 +73,7 @@ button:hover {
 
 .votes {
   display: flex;
-  flex-direction: column;;
+  flex-direction: column;
 }
 
 .qlist {

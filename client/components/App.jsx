@@ -31,7 +31,7 @@ class App extends React.Component {
         <h1>Customer questions & answers</h1>
         <Search />
         <Questions questions={questRend}/>
-        <button>See more answered questions ({questions.length})</button>
+        <button className='seeQuests'>See more answered questions ({questions.length})</button>
       </div>
     );
   }
