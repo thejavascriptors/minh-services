@@ -17,7 +17,7 @@ app.get('/api/questions', (req, res) => {
 });
 
 app.patch('/api/questions/:id/question', (req, res) => {
-  Question.findOneAndUpdate({question_id: Number(req.params.id)}, {$inc: {votes: 1}})
+  Question.findOneAndUpdate({_id: Number(req.params.id)}, {$inc: {votes: 1}})
     .then(data => res.send(data))
     .catch(err => console.log(err));
 });

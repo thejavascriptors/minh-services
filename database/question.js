@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const db = require('./index.js');
 
 const QuestionSchema = new mongoose.Schema({
-  question_id: Number,
+  _id: Number,
   question: String,
   answer: [{
-    user_id: Number,
-    user_name: String,
-    created_at: String,
+    _id: Number,
+    username: String,
+    createdAt: String,
     text: String
   }],
   votes: Number
