@@ -1,6 +1,11 @@
 body {
-  width: 65%;
   margin: 10px;
+  border-top: solid 1px rgb(224, 220, 220);
+  border-bottom: solid 1px rgb(224, 220, 220);
+}
+
+.display {
+  width: 55%;
 }
 
 #answer label, #question label {
@@ -70,6 +75,7 @@ button:hover {
 .seeQuests {
   height: 30px;
   margin: 10px;
+  margin-left: 200px;
 }
 
 .downvote {
@@ -102,7 +108,7 @@ button:hover {
   margin-right: 5px;
   padding-right: 10px;
   text-align: center;
-  border-right: solid 1px rgb(224, 220, 220);;
+  border-right: solid 1px rgb(224, 220, 220);
   height: 90px;
 }
 

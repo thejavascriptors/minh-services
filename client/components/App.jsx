@@ -27,7 +27,7 @@ class App extends React.Component {
   render() {
     const {questions, data} = this.state;
     return (
-      <div>
+      <div className='display'>
         <h2>Customer questions & answers</h2>
         <Search />
         <Questions questions={questions}/>
