@@ -1,0 +1,62 @@
+body {
+  width: 65%;
+}
+
+#answer, #question {
+  font-weight: bold;
+}
+
+.question:hover, #see:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: orange;
+}
+
+.question, #see {
+  color: rgb(24, 114, 156);
+}
+
+.search {
+  height: 25px;
+  width: 100%;
+}
+
+.user {
+  color: rgb(99, 96, 96);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.downvote {
+  padding: 0;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 15px solid rgb(99, 96, 96);
+  border-bottom: none;
+  background-color: white;
+}
+
+.upvote {
+  padding: 0;
+	width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+  border-bottom: 15px solid rgb(99, 96, 96);
+  border-top: none;
+  background-color: white;
+}
+
+.votes {
+  display: flex;
+  flex-direction: column;;
+}
+
+.qlist {
+  margin: 10px;
+  padding: 10px;
+}

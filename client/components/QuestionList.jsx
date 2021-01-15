@@ -14,13 +14,18 @@ class QuestionList extends React.Component {
   render() {
     const {question, answers, answerRend} = this.state;
     return (
-      <div>
+      <div className='qlist'>
         <label id='question'>Question:</label>
-        <div>{question.question}</div>
+        <div className='question'>{question.question}</div>
         <label id='answer'>Answer: </label>
         <div>{answerRend.map(answer => <AnswerList key={answer.user_id} answer={answer} />)}</div>
-        <p>See more answers ({answers.length})</p>
-        <div>{question.votes} votes</div>
+        <p id='see'>See more answers ({answers.length})</p>
+        <div className='votes'>
+          <button className='upvote'></button>
+          <span>{question.votes}</span>
+          <span>votes</span>
+          <button className='downvote'></button>
+        </div>
       </div>
     );
   }
