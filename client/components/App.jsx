@@ -23,6 +23,16 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
+  handleQuestion() {
+    let {data, questions} = this.state;
+    let newQuest = questions.slice();
+    for (let i = questions.length; i < questions.length + 4; i++) {
+      newQuest.push(data[i]);
+    }
+    this.setState({
+      questions: newQuest
+    });
+  }
 
   render() {
     const {questions, data} = this.state;
@@ -31,7 +41,7 @@ class App extends React.Component {
         <h2>Customer questions & answers</h2>
         <Search />
         <Questions questions={questions}/>
-        <button className='seeQuests'>See more answered questions ({data.length})</button>
+        <button className='seeQuests' onClick={e => this.handleQuestion()}>See more answered questions ({data.length})</button>
       </div>
     );
   }

@@ -7,8 +7,18 @@ class QuestionList extends React.Component {
     this.state = {
       question: props.question,
       answerData: props.question.answer,
-      answerRender: props.question.answer.slice(0, 1)
+      answerRender: props.question.answer.slice(0, 1),
+      answerClick: false
     };
+    this.handleAnswer = this.handleAnswer.bind(this);
+  }
+
+  handleAnswer() {
+
+  }
+
+  handleClick() {
+
   }
 
   render() {
@@ -22,11 +32,11 @@ class QuestionList extends React.Component {
           </div>
           <div id='answer'>
             <label>Answer: </label>
-            <div className='answer'>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} />)}</div>
+            <div className='answer'>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} answerClick={this.state.answerClick} handleAnswer={this.handleAnswer}/>)}</div>
           </div>
           <div className='hat'>
             <p className='arrow'>&lsaquo;</p>
-            <p className='see'>See more answers ({answerData.length})</p>
+            <p className='see' onClick={e => this.handleClick()}>See more answers ({answerData.length})</p>
           </div>
         </div>
         <div className='votes'>
