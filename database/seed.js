@@ -30,7 +30,8 @@ for (var i = 0; i < 100; i++) {
 
 let insertData = () => {
   Question.create(data)
-    .then(() => db.disconnect());
+    .then(() => db.close())
+    .catch(err => console.log(err));
 };
 
 insertData();
