@@ -15,13 +15,19 @@ class QuestionList extends React.Component {
     const {question, answerData, answerRender} = this.state;
     return (
       <div className='qlist'>
-        <label id='question'>Question:</label>
-        <div className='question'>{question.question}</div>
-        <label id='answer'>Answer: </label>
-        <div>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} />)}</div>
-        <div className='hat'>
-          <p className='arrow'>&lsaquo;</p>
-          <p className='see'>See more answers ({answerData.length})</p>
+        <div>
+          <div id='question'>
+            <label>Question:</label>
+            <div className='question'>{question.question}</div>
+          </div>
+          <div id='answer'>
+            <label>Answer: </label>
+            <div className='answer'>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} />)}</div>
+          </div>
+          <div className='hat'>
+            <p className='arrow'>&lsaquo;</p>
+            <p className='see'>See more answers ({answerData.length})</p>
+          </div>
         </div>
         <div className='votes'>
           <button className='upvote'></button>
