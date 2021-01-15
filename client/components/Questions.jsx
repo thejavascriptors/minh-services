@@ -3,7 +3,7 @@ import QuestionList from './QuestionList.jsx';
 
 const Questions = ({questions}) => (
   <div>
-    {questions.map(question => <QuestionList key={question.question_id} question={question} />)}
+    {questions.map(question => <QuestionList key={question._id} question={question} />)}
   </div>
 );
 

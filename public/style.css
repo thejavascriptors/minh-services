@@ -31,8 +31,17 @@ body {
 
 .search {
   height: 25px;
-  background: ;
   width: 100%;
+  padding-left: 25px;
+}
+
+.searchBar img {
+  position: absolute;
+  left: 17px;
+  padding-top: 7px;
+  height: 13px;
+  width: 13px;
+  object-fit: cover;
 }
 
 .user {
@@ -45,6 +54,7 @@ button:hover {
 
 .seeQuests {
   height: 30px;
+  margin: 10px;
 }
 
 .downvote {

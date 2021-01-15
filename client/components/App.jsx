@@ -7,8 +7,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      questions: [],
-      questRend: []
+      data: [],
+      questions: []
     };
   }
 
@@ -17,21 +17,21 @@ class App extends React.Component {
       .then(data => {
         data = data.data.sort((a, b) => b.votes - a.votes);
         this.setState({
-        questions: data,
-        questRend: data.slice(0, 4)
+        data: data,
+        questions: data.slice(0, 4)
       })})
       .catch(err => console.log(err));
   }
 
 
   render() {
-    const {questions, questRend} = this.state;
+    const {questions, data} = this.state;
     return (
       <div>
-        <h1>Customer questions & answers</h1>
+        <h2>Customer questions & answers</h2>
         <Search />
-        <Questions questions={questRend}/>
-        <button className='seeQuests'>See more answered questions ({questions.length})</button>
+        <Questions questions={questions}/>
+        <button className='seeQuests'>See more answered questions ({data.length})</button>
       </div>
     );
   }

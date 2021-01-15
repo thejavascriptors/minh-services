@@ -6,22 +6,22 @@ class QuestionList extends React.Component {
     super(props);
     this.state = {
       question: props.question,
-      answers: props.question.answer,
-      answerRend: props.question.answer.slice(0, 1)
+      answerData: props.question.answer,
+      answerRender: props.question.answer.slice(0, 1)
     };
   }
 
   render() {
-    const {question, answers, answerRend} = this.state;
+    const {question, answerData, answerRender} = this.state;
     return (
       <div className='qlist'>
         <label id='question'>Question:</label>
         <div className='question'>{question.question}</div>
         <label id='answer'>Answer: </label>
-        <div>{answerRend.map(answer => <AnswerList key={answer.user_id} answer={answer} />)}</div>
+        <div>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} />)}</div>
         <div className='hat'>
           <p className='arrow'>&lsaquo;</p>
-          <p className='see'>See more answers ({answers.length})</p>
+          <p className='see'>See more answers ({answerData.length})</p>
         </div>
         <div className='votes'>
           <button className='upvote'></button>
