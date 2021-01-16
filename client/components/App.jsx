@@ -36,6 +36,7 @@ class App extends React.Component {
 
   render() {
     const {questions, data} = this.state;
+    console.log(questions);
     return (
       <div className='display'>
         <h2>Customer questions & answers</h2>

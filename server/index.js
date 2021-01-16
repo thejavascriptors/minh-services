@@ -19,7 +19,7 @@ app.get('/api/questions', (req, res) => {
 app.patch('/api/questions/:id/question', (req, res) => {
   let id = req.params.id.slice(1);
   let vote = req.body.data;
-  Question.findOneAndUpdate({_id: Number(id)}, {$inc: {votes: vote}})
+  Question.findOneAndUpdate({_id: Number(id)}, {$inc: {votes: vote}}, {new: true})
     .then(data => res.end(JSON.stringify(data)))
     .catch(err => console.error(err));
 });
