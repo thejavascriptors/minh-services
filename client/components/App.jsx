@@ -20,7 +20,7 @@ class App extends React.Component {
         data: data,
         questions: data.slice(0, 4)
       })})
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   handleQuestion() {

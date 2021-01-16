@@ -13,13 +13,15 @@ app.use(bodyParser.json());
 app.get('/api/questions', (req, res) => {
   Question.find()
     .then(data => res.send(data))
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
 });
 
 app.patch('/api/questions/:id/question', (req, res) => {
-  Question.findOneAndUpdate({_id: Number(req.params.id)}, {$inc: {votes: 1}})
-    .then(data => res.send(data))
-    .catch(err => console.log(err));
+  let id = req.params.id.slice(1);
+  let vote = req.body.data;
+  Question.findOneAndUpdate({_id: Number(id)}, {$inc: {votes: vote}})
+    .then(data => res.end(JSON.stringify(data)))
+    .catch(err => console.error(err));
 });
 
 app.listen(port, (req, res) => {

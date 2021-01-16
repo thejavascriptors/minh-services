@@ -1,5 +1,6 @@
 import React from 'react';
 import AnswerList from './AnswerList.jsx';
+import axios from 'axios';
 
 class QuestionList extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class QuestionList extends React.Component {
       answerData: props.question.answer,
       answerRender: props.question.answer.slice(0, 1),
       answerClick: false,
+      vote: props.question.votes,
       collapse: false
     };
     this.handleClick = this.handleClick.bind(this);
@@ -38,8 +40,19 @@ class QuestionList extends React.Component {
     });
   }
 
+  handleVote(e) {
+    let vote = e === 'upvote' ? 1 : -1
+    axios.patch(`/api/questions/:${this.props.question._id}/question`, {
+      data: vote
+    })
+      .then(res => this.setState({
+        vote: res.data.votes
+      }))
+      .catch(err => console.error(err));
+  }
+
   render() {
-    const {answerData, answerRender} = this.state;
+    const {vote, answerData, answerRender} = this.state;
     return (
       <div className='qlist'>
         <div>
@@ -58,10 +71,10 @@ class QuestionList extends React.Component {
           {this.state.collapse ? <button className='collapse' onClick={e => this.handleCollapse()}>Collapse all answers</button> : null}
         </div>
         <div className='votes'>
-          <button className='upvote'></button>
-          <span>{this.props.question.votes}</span>
+          <button className='upvote' onClick={e => this.handleVote(e.target.className)}></button>
+          <span>{vote}</span>
           <span>votes</span>
-          <button className='downvote'></button>
+          <button className='downvote' onClick={e => this.handleVote(e.target.className)}></button>
         </div>
       </div>
     );
