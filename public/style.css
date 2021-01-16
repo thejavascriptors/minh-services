@@ -2,6 +2,7 @@ body {
   margin: 10px;
   border-top: solid 1px rgb(224, 220, 220);
   border-bottom: solid 1px rgb(224, 220, 220);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .display {
@@ -18,7 +19,7 @@ body {
 }
 
 .question {
-  margin-left: 50px;
+  margin-left: 48px;
 }
 
 .answer {
@@ -46,7 +47,7 @@ body {
 
 .hat {
   display: flex;
-  margin-left: 125px;
+  margin-left: 135px;
 }
 
 .search {
@@ -122,4 +123,8 @@ button:hover {
 .expand:hover {
   cursor: pointer;
   color: orange;
+}
+
+.text {
+  line-height: 1.4;
 }
