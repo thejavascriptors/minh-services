@@ -7,7 +7,8 @@ class QuestionList extends React.Component {
     this.state = {
       answerData: props.question.answer,
       answerRender: props.question.answer.slice(0, 1),
-      answerClick: false
+      answerClick: false,
+      collapse: false
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -19,13 +20,21 @@ class QuestionList extends React.Component {
       newAns.push(answerData[i]);
     }
     this.setState({
-      answerRender: newAns
+      answerRender: newAns,
+      collapse: true
     });
   }
 
   handleClick() {
     this.setState({
       answerClick: !this.state.answerClick
+    });
+  }
+
+  handleCollapse() {
+    this.setState({
+      answerRender: this.props.question.answer.slice(0, 1),
+      collapse: false
     });
   }
 
@@ -46,6 +55,7 @@ class QuestionList extends React.Component {
             <p className='arrow'>&lsaquo;</p>
             <p className='see' onClick={e => this.handleAnswer()}>See more answers ({answerData.length - answerRender.length})</p>
           </div>
+          {this.state.collapse ? <button className='collapse' onClick={e => this.handleCollapse()}>Collapse all answers</button> : null}
         </div>
         <div className='votes'>
           <button className='upvote'></button>

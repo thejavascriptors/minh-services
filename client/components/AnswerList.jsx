@@ -3,7 +3,7 @@ import React from 'react';
 const AnswerList = ({answer, answerClick, handleClick}) => (
   <div>
     <div className='text'>
-      {answerClick ?
+      {answer.text.length < 200 ? <div>{answer.text}</div> : answerClick ?
       <div>
         {answer.text} <span className='expand' onClick={e => handleClick()}>see less</span>
       </div> :
@@ -12,7 +12,6 @@ const AnswerList = ({answer, answerClick, handleClick}) => (
       </div>}
     </div>
     <div className='user'>By {answer.username} on {answer.createdAt}</div>
-    <br></br>
   </div>
 );
 
