@@ -64,11 +64,13 @@ class QuestionList extends React.Component {
             <label>Answer: </label>
             <div className='answer'>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} answerClick={this.state.answerClick} handleClick={this.handleClick}/>)}</div>
           </div>
-          <div className='hat'>
-            <p className='arrow'>&lsaquo;</p>
-            <p className='see' onClick={e => this.handleAnswer()}>See more answers ({answerData.length - answerRender.length})</p>
+          <div className='seeMore'>
+            <div className='seeAns'>
+              <p className='caret'>&lsaquo;</p>
+              <p className='see' onClick={e => this.handleAnswer()}>See more answers ({answerData.length - answerRender.length})</p>
+            </div>
+            {this.state.collapse ? <button className='collapse' onClick={e => this.handleCollapse()}>Collapse all answers</button> : null}
           </div>
-          {this.state.collapse ? <button className='collapse' onClick={e => this.handleCollapse()}>Collapse all answers</button> : null}
         </div>
         <div className='votes'>
           <button className='upvote' onClick={e => this.handleVote(e.target.className)}></button>

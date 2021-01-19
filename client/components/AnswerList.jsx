@@ -12,6 +12,7 @@ const AnswerList = ({answer, answerClick, handleClick}) => (
       </div>}
     </div>
     <div className='user'>By {answer.username} on {answer.createdAt}</div>
+    <br></br>
   </div>
 );
 

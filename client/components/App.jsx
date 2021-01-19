@@ -8,8 +8,11 @@ class App extends React.Component {
     super();
     this.state = {
       data: [],
-      questions: []
+      questions: [],
+      searchQuery: ''
     };
+    this.handleSearch = this.handleSearch.bind(this);
+    this.emptySearch = this.emptySearch.bind(this);
   }
 
   componentDidMount() {
@@ -34,13 +37,26 @@ class App extends React.Component {
     });
   }
 
+  handleSearch(val) {
+    console.log(val);
+    this.setState({
+      searchQuery: val
+    });
+  }
+
+  emptySearch(e) {
+    $(e).val('');
+    this.setState({
+      searchQuery: ''
+    });
+  }
+
   render() {
     const {questions, data} = this.state;
-    console.log(questions);
     return (
       <div className='display'>
         <h2>Customer questions & answers</h2>
-        <Search />
+        <Search handleSearch={this.handleSearch} emptySearch={this.emptySearch} searchQuery={this.state.searchQuery}/>
         <Questions questions={questions}/>
         <button className='seeQuests' onClick={e => this.handleQuestion()}>See more answered questions ({data.length - questions.length})</button>
       </div>
