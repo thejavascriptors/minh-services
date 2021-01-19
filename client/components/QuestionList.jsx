@@ -148,8 +148,7 @@ class QuestionList extends React.Component {
     });
   }
 
-  handleVote(e) {
-    let vote = e === 'upvote' ? 1 : -1
+  handleVote(vote) {
     axios.patch(`/api/questions/:${this.props.question._id}/question`, {
       data: vote
     })
@@ -181,10 +180,10 @@ class QuestionList extends React.Component {
           </div>
         </div>
         <Votes>
-          <UpVote onClick={e => this.handleVote(e.target.className)}></UpVote>
+          <UpVote onClick={e => this.handleVote(1)}></UpVote>
           <span>{vote}</span>
           <span>votes</span>
-          <DownVote onClick={e => this.handleVote(e.target.className)}></DownVote>
+          <DownVote onClick={e => this.handleVote(-1)}></DownVote>
         </Votes>
       </Questions>
     );
