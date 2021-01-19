@@ -1,10 +1,47 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const SearchInput = styled.input`
+  height: 25px;
+  width: 60%;
+  padding-left: 25px;
+  margin-left: 10px;
+  padding-right: 25px;
+  border: 1px solid black;
+  &:focus {
+    border-radius: 3px;
+    border: 1px solid rgb(95, 95, 95);
+    box-shadow: 0 2px 2px 1px rgba(107, 224, 224, 0.589);
+    outline: none;
+  }
+`;
+
+const Magnifying = styled.img`
+  position: absolute;
+  left: 25px;
+  padding-top: 7px;
+  height: 13px;
+  width: 13px;
+  object-fit: cover;
+`;
+
+const Exit = styled.img`
+  position: absolute;
+  right: 30.5em;
+  padding-top: 12px;
+  height: 8px;
+  width: 8px;
+  object-fit: cover;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const Search = ({handleSearch, searchQuery, emptySearch}) => (
-  <div className='searchBar'>
-    <img className='magnifying' src='https://www.flaticon.com/svg/vstatic/svg/2089/2089805.svg?token=exp=1610740966~hmac=0b4ddbd9f15e9bc0d2f5194ef311bf89' />
-    <input className='search' type='text' placeholder='Have a question? Search for answers' onChange={e => handleSearch(e.target.value)}></input>
-    <img style={searchQuery.length > 0 ? {'visibility': 'visible'} : {'visibility': 'hidden'}}className='exit' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSir57AKqjH6VYMg11KEt1LpSvYJubL7CVI_A&usqp=CAU' onClick={e => emptySearch(e.target.previousSibling)}/>
+  <div>
+    <Magnifying src='https://www.flaticon.com/svg/vstatic/svg/2089/2089805.svg?token=exp=1610740966~hmac=0b4ddbd9f15e9bc0d2f5194ef311bf89' />
+    <SearchInput type='text' placeholder='Have a question? Search for answers' onChange={e => handleSearch(e.target.value)} />
+    <Exit style={searchQuery.length > 0 ? {'visibility': 'visible'} : {'visibility': 'hidden'}} src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSir57AKqjH6VYMg11KEt1LpSvYJubL7CVI_A&usqp=CAU' onClick={e => emptySearch(e.target.previousSibling)} />
   </div>
 );
 

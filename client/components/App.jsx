@@ -2,6 +2,27 @@ import React from 'react';
 import Search from './Search.jsx';
 import Questions from './Questions.jsx';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const Header = styled.h2`
+  margin-left: 10px;
+`;
+
+const SeeMoreQuestions = styled.button`
+  height: 30px;
+  margin: 10px;
+  margin-left: 190px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Wrapper = styled.div`
+  border-top: solid 1px rgb(224, 220, 220);
+  border-bottom: solid 1px rgb(224, 220, 220);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+`;
 
 class App extends React.Component {
   constructor() {
@@ -54,12 +75,12 @@ class App extends React.Component {
   render() {
     const {questions, data} = this.state;
     return (
-      <div className='display'>
-        <h2>Customer questions & answers</h2>
+      <Wrapper>
+        <Header>Customer questions & answers</Header>
         <Search handleSearch={this.handleSearch} emptySearch={this.emptySearch} searchQuery={this.state.searchQuery}/>
         <Questions questions={questions}/>
-        <button className='seeQuests' onClick={e => this.handleQuestion()}>See more answered questions ({data.length - questions.length})</button>
-      </div>
+        <SeeMoreQuestions onClick={e => this.handleQuestion()}>See more answered questions ({data.length - questions.length})</SeeMoreQuestions>
+      </Wrapper>
     );
   }
 }
