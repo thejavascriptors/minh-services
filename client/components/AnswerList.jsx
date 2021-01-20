@@ -3,10 +3,12 @@ import styled from 'styled-components';
 
 const User = styled.div`
   color: rgb(97, 93, 93);
+  font-size: 14px;
 `;
 
-const Text = styled.div`
-  line-height: 1.3;
+const Answer= styled.div`
+  line-height: 1.4;
+  font-size: 15px;
 `;
 
 const SeeMore = styled.span`
@@ -19,8 +21,8 @@ const SeeMore = styled.span`
 `;
 
 const AnswerList = ({answer, answerClick, handleClick}) => (
-  <div>
-    <Text>
+  <Answer>
+    <div>
       {answer.text.length < 200 ? <div>{answer.text}</div> : answerClick ?
       <div>
         {answer.text} <SeeMore onClick={e => handleClick()}>see less</SeeMore>
@@ -28,10 +30,10 @@ const AnswerList = ({answer, answerClick, handleClick}) => (
       <div>
         {answer.text.slice(0, 200)}...<SeeMore onClick={e => handleClick()}>see more</SeeMore>
       </div>}
-    </Text>
+    </div>
     <User>By {answer.username} on {answer.createdAt}</User>
     <br></br>
-  </div>
+  </Answer>
 );
 
 export default AnswerList;

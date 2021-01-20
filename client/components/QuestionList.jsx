@@ -10,6 +10,7 @@ const Questions = styled.div`
   width: 60%;
   margin: 10px;
   padding: 10px;
+  font-size: 14px;
 `;
 
 const DownVote = styled.button`
@@ -57,13 +58,14 @@ const Votes = styled.div`
 
 const SeeMoreAnswers = styled.div`
   display: flex;
-  margin-left: 118px;
+  margin-left: 116px;
 `;
 
 const Collapse = styled.button`
   height: 32px;
   margin: 15px;
-  margin-left: 118px;
+  margin-left: 116px;
+  margin-bottom: 100px;
   border-width: 1px;
   background-color: white;
   &:hover {
@@ -81,7 +83,7 @@ const Label = styled.label`
 `;
 
 const Question = styled.div`
-  margin-left: 36px;
+  margin-left: 38px;
   color: rgb(24, 114, 156);
   &:hover {
     cursor: pointer;
@@ -90,7 +92,12 @@ const Question = styled.div`
   }
 `;
 
-const QABlock = styled.div`
+const QuestionBlock = styled.div`
+  display: flex;
+  margin: 10px;
+`;
+
+const AnswerBlock = styled.div`
   display: flex;
   margin: 10px;
 `;
@@ -101,6 +108,7 @@ const Answer = styled.div`
 `;
 
 const SeeAnswer = styled.p`
+  display: inline-block;
   margin-left: 5px;
   color: rgb(24, 114, 156);
   &:hover {
@@ -163,14 +171,14 @@ class QuestionList extends React.Component {
     return (
       <Questions>
         <div>
-          <QABlock>
+          <QuestionBlock>
             <Label>Question: </Label>
             <Question>{this.props.question.question}</Question>
-          </QABlock>
-          <QABlock>
+          </QuestionBlock>
+          <AnswerBlock>
             <Label>Answer: </Label>
             <Answer>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} answerClick={this.state.answerClick} handleClick={this.handleClick}/>)}</Answer>
-          </QABlock>
+          </AnswerBlock>
           <div>
             <SeeMoreAnswers>
               <Caret>&lsaquo;</Caret>

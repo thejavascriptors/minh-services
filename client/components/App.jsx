@@ -11,7 +11,8 @@ const Header = styled.h2`
 const SeeMoreQuestions = styled.button`
   height: 30px;
   margin: 10px;
-  margin-left: 190px;
+  margin-left: 186px;
+  margin-bottom: 30px;
   &:hover {
     cursor: pointer;
   }
@@ -21,7 +22,6 @@ const Wrapper = styled.div`
   border-top: solid 1px rgb(224, 220, 220);
   border-bottom: solid 1px rgb(224, 220, 220);
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
 `;
 
 class App extends React.Component {
@@ -30,6 +30,7 @@ class App extends React.Component {
     this.state = {
       data: [],
       questions: [],
+      filter: [],
       searchQuery: ''
     };
     this.handleSearch = this.handleSearch.bind(this);
@@ -59,16 +60,22 @@ class App extends React.Component {
   }
 
   handleSearch(val) {
-    console.log(val);
+    const {data} = this.state;
+    let filtered = data.filter(question => question.question.includes(val));
     this.setState({
-      searchQuery: val
+      searchQuery: val,
+      questions: filtered.slice(0, 4),
+      filter: filtered
     });
   }
 
   emptySearch(e) {
+    const {data} = this.state;
+    let newQuestions = data.slice(0, 4)
     $(e).val('');
     this.setState({
-      searchQuery: ''
+      searchQuery: '',
+      questions: newQuestions
     });
   }
 
