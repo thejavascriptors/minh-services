@@ -31,12 +31,14 @@ const Unordered = styled.ul`
   padding: 0;
   overflow: hidden;
   font-size: 14px;
+  border-bottom: solid 1px rgb(224, 220, 220);
+  width: 65%;
 `;
 
   const List = styled.li`
   float: left;
-  border-bottom: solid 1px rgb(224, 220, 220);
   height: 50px;
+  border-bottom: ${props => props.selected === 'qna' ? '3px solid orange' : null};
   `;
 
   const Nav = styled.a`
@@ -56,7 +58,8 @@ class App extends React.Component {
       data: [],
       questions: [],
       searchQuery: '',
-      view: 'search'
+      view: 'default',
+      selected: 'qna'
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.emptySearch = this.emptySearch.bind(this);
@@ -85,6 +88,12 @@ class App extends React.Component {
   }
 
   handleSearch(val) {
+    if (val === '') {
+      this.setState({
+        view: 'default'
+      });
+      return;
+    }
     let data = [...this.state.data];
     let filtered = data.filter(question => question.question.includes(val));
 
@@ -134,7 +143,7 @@ class App extends React.Component {
             <Unordered>
               <List><Nav>All</Nav></List>
               <List><Nav>Product Information</Nav></List>
-              <List><Nav>Customer Q&A's</Nav></List>
+              <List selected={this.state.selected}><Nav>Customer Q&A's</Nav></List>
               <List><Nav>Customer Reviews</Nav></List>
             </Unordered>
             <FilterQuestion questions={questions}/>

@@ -8,9 +8,9 @@ const Post = styled.div`
   font-size: 14px;
   margin: 10px;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 4px;
   height: 45px;
-  width: 60%;
+  width: 65%;
   background-color: rgb(97, 93, 93, 0.1);
 `;
 
@@ -26,16 +26,38 @@ const Button = styled.button`
   border-radius: 3px;
   border: 1px solid rgb(97, 93, 93, 0.6);
   background-color: whitesmoke;
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(97, 93, 93, 0.1);
+  }
 `;
 
-const FilterQuestion = ({questions}) => (
-  <div>
-    {questions.map(question => <FilterList key={question._id} question={question}/>)}
-    <Post>
-      <Bold>Don't see the answer you're looking for?</Bold>
-      <Button>Post your question</Button>
-    </Post>
-  </div>
-);
+class FilterQuestion extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      clicked: false
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState({
+      clicked: !this.state.clicked
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.questions.map(question => <FilterList key={question._id} question={question} handleClick={this.handleClick} clicked={this.state.clicked}/>)}
+        <Post>
+          <Bold>Don't see the answer you're looking for?</Bold>
+          <Button>Post your question</Button>
+        </Post>
+      </div>
+    );
+  }
+}
 
 export default FilterQuestion;
