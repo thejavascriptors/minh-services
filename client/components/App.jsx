@@ -58,7 +58,7 @@ class App extends React.Component {
       data: [],
       questions: [],
       searchQuery: '',
-      view: 'default',
+      view: 'search',
       selected: 'qna'
     };
     this.handleSearch = this.handleSearch.bind(this);

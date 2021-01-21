@@ -32,32 +32,14 @@ const Button = styled.button`
   }
 `;
 
-class FilterQuestion extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      clicked: false
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.setState({
-      clicked: !this.state.clicked
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        {this.props.questions.map(question => <FilterList key={question._id} question={question} handleClick={this.handleClick} clicked={this.state.clicked}/>)}
-        <Post>
-          <Bold>Don't see the answer you're looking for?</Bold>
-          <Button>Post your question</Button>
-        </Post>
-      </div>
-    );
-  }
-}
+const FilterQuestion = ({questions}) => (
+  <div>
+    {questions.map(question => <FilterList key={question._id} question={question}/>)}
+    <Post>
+      <Bold>Don't see the answer you're looking for?</Bold>
+      <Button>Post your question</Button>
+    </Post>
+  </div>
+);
 
 export default FilterQuestion;
