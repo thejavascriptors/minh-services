@@ -22,7 +22,7 @@ const SeeMore = styled.span`
 
 const AnswerList = ({answer, answerClick, handleClick}) => (
   <Answer>
-    <div>
+    <div className='text'>
       {answer.text.length < 200 ? <div>{answer.text}</div> : answerClick ?
       <div>
         {answer.text} <SeeMore onClick={e => handleClick()}>see less</SeeMore>
