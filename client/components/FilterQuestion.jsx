@@ -32,9 +32,15 @@ const Button = styled.button`
   }
 `;
 
+const NoMatches = styled.div`
+  margin: 10px;
+  font-size: 14px;
+`;
+
 const FilterQuestion = ({questions}) => (
   <div>
-    {questions.map(question => <FilterList key={question._id} question={question}/>)}
+    {questions.length > 0 ? questions.map(question => <FilterList key={question._id} question={question}/>) : <NoMatches>There were 0 results in Customer Questions & Answers.</NoMatches>}
+    <br></br>
     <Post>
       <Bold>Don't see the answer you're looking for?</Bold>
       <Button>Post your question</Button>

@@ -7,6 +7,7 @@ const Wrap = styled.div`
   padding: 10px;
   margin-top: 5px;
   line-height: 1.4;
+  width: 60%;
 `;
 
 const Question = styled.div`
@@ -34,7 +35,7 @@ class FilterList extends React.Component {
   render() {
     return (
       <Wrap>
-        <Question>Q: {this.props.question.question}</Question>
+        <Question className='question'>Q: {this.props.question.question}</Question>
         <Answer><b>A: </b><FilterAnswer answer={this.props.question.answer} handleClick={this.handleClick} clicked={this.state.clicked}/></Answer>
         <br></br>
       </Wrap>

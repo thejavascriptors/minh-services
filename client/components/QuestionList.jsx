@@ -173,7 +173,7 @@ class QuestionList extends React.Component {
         <div>
           <QuestionBlock>
             <Label>Question: </Label>
-            <Question className='question'>{this.props.question.question}</Question>
+            <Question>{this.props.question.question}</Question>
           </QuestionBlock>
           <AnswerBlock>
             <Label>Answer: </Label>

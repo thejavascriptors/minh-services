@@ -58,7 +58,7 @@ class App extends React.Component {
       data: [],
       questions: [],
       searchQuery: '',
-      view: 'search',
+      view: 'default',
       selected: 'qna'
     };
     this.handleSearch = this.handleSearch.bind(this);
@@ -89,20 +89,16 @@ class App extends React.Component {
 
   handleSearch(val) {
     if (val === '') {
-      this.setState({
-        view: 'default'
-      });
-      return;
+      return this.emptySearch();
     }
     let data = [...this.state.data];
     let filtered = data.filter(question => question.question.includes(val));
 
-      this.setState({
-        searchQuery: val,
-        questions: filtered,
-        view: 'search'
-      });
-
+    this.setState({
+      searchQuery: val,
+      questions: filtered,
+      view: 'search'
+    }, () => {
       let para = document.querySelectorAll('.question');
       let regex = RegExp(val, 'gi');
       let replace = `<span class="highlight">${val}</span>`;
@@ -110,6 +106,7 @@ class App extends React.Component {
         let newHTML = para[i].textContent.replace(regex, replace);
         para[i].innerHTML = newHTML;
       }
+    });
   }
 
   emptySearch(e) {
@@ -123,13 +120,8 @@ class App extends React.Component {
     });
   }
 
-  renderView() {
-
-  }
-
   render() {
     const {questions, data} = this.state;
-    // console.log('Start');
     return (
       <Wrapper>
         <Header>Customer questions & answers</Header>
