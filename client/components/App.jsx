@@ -1,6 +1,7 @@
 import React from 'react';
 import Search from './Search.jsx';
 import Questions from './Questions.jsx';
+import FilterQuestion from './FilterQuestion.jsx';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -16,13 +17,36 @@ const SeeMoreQuestions = styled.button`
   &:hover {
     cursor: pointer;
   }
-  visibility: ${props => props.search.length > 0 ? 'visible' : 'hidden'};
 `;
 
 const Wrapper = styled.div`
   border-top: solid 1px rgb(224, 220, 220);
   border-bottom: solid 1px rgb(224, 220, 220);
   font-family: Arial, Helvetica, sans-serif;
+`;
+
+const Unordered = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 14px;
+`;
+
+  const List = styled.li`
+  float: left;
+  border-bottom: solid 1px rgb(224, 220, 220);
+  height: 50px;
+  `;
+
+  const Nav = styled.a`
+  text-align: center;
+  display: block;
+  margin: 12px;
+  padding: 12px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 class App extends React.Component {
@@ -32,7 +56,7 @@ class App extends React.Component {
       data: [],
       questions: [],
       searchQuery: '',
-      view: 'default'
+      view: 'search'
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.emptySearch = this.emptySearch.bind(this);
@@ -67,6 +91,7 @@ class App extends React.Component {
       this.setState({
         searchQuery: val,
         questions: filtered,
+        view: 'search'
       });
 
       let para = document.querySelectorAll('.question');
@@ -97,19 +122,25 @@ class App extends React.Component {
     const {questions, data} = this.state;
     // console.log('Start');
     return (
-      <div>
+      <Wrapper>
+        <Header>Customer questions & answers</Header>
+        <Search handleSearch={this.handleSearch} emptySearch={this.emptySearch} searchQuery={this.state.searchQuery}/>
         {this.state.view === 'default' ?
-          <Wrapper>
-            <Header>Customer questions & answers</Header>
-            <Search handleSearch={this.handleSearch} emptySearch={this.emptySearch} searchQuery={this.state.searchQuery}/>
-            <Questions questions={questions}/>
-            <SeeMoreQuestions search={this.state.searchQuery} onClick={e => this.handleQuestion()}>See more answered questions ({data.length - questions.length})</SeeMoreQuestions>
-          </Wrapper> :
           <div>
-
+            <Questions questions={questions}/>
+            <SeeMoreQuestions onClick={e => this.handleQuestion()}>See more answered questions ({data.length - questions.length})</SeeMoreQuestions>
+          </div> :
+          <div>
+            <Unordered>
+              <List><Nav>All</Nav></List>
+              <List><Nav>Product Information</Nav></List>
+              <List><Nav>Customer Q&A's</Nav></List>
+              <List><Nav>Customer Reviews</Nav></List>
+            </Unordered>
+            <FilterQuestion questions={questions}/>
           </div>
         }
-      </div>
+      </Wrapper>
     );
   }
 }
