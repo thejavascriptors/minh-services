@@ -122,6 +122,7 @@ class App extends React.Component {
 
   emptySearch(e) {
     const {data} = this.state;
+    console.log(data);
     let newQuestions = data.slice(0, 4);
     $(e).val('');
     this.setState({

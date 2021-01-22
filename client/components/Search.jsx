@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SearchInput = styled.input`
-  height: 25px;
-  width: 60%;
+  height: 27px;
+  width: 56em;
   padding-left: 25px;
   margin-left: 10px;
   padding-right: 25px;
-  border: 1px solid black;
+  border: 1px solid rgb(0, 0, 0, 0.5);
   border-radius: 3px;
   &:focus {
     border: 1px solid rgb(95, 95, 95);
@@ -28,7 +28,8 @@ const Magnifying = styled.img`
 
 const Exit = styled.img`
   position: absolute;
-  right: 28.5em;
+  display: inline-block;
+  right: 25em;
   padding-top: 12px;
   height: 8px;
   width: 8px;
