@@ -39,6 +39,7 @@ const Unordered = styled.ul`
   float: left;
   height: 50px;
   border-bottom: ${props => props.selected === 'qna' ? '3px solid orange' : null};
+  font-weight: ${props => props.selected === 'qna' ? 'bold' : null};
   `;
 
   const Nav = styled.a`
@@ -58,8 +59,7 @@ class App extends React.Component {
       data: [],
       questions: [],
       searchQuery: '',
-      view: 'default',
-      selected: 'qna'
+      view: 'default'
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.emptySearch = this.emptySearch.bind(this);
@@ -92,19 +92,19 @@ class App extends React.Component {
       return this.emptySearch();
     }
     let data = [...this.state.data];
-    let filtered = data.filter(question => question.question.includes(val));
+    let filtered = data.filter(question => (question.question.includes(val) || question.answer.filter(answer => answer !== null ? answer.text.includes(val) : false)));
 
     this.setState({
       searchQuery: val,
       questions: filtered,
       view: 'search'
     }, () => {
-      let para = document.querySelectorAll('.question');
+      let words = document.querySelectorAll('.question, .answer');
       let regex = RegExp(val, 'gi');
       let replace = `<span class="highlight">${val}</span>`;
-      for (let i = 0; i < para.length; i++) {
-        let newHTML = para[i].textContent.replace(regex, replace);
-        para[i].innerHTML = newHTML;
+      for (let i = 0; i < words.length; i++) {
+        let newHTML = words[i].textContent.replace(regex, replace);
+        words[i].innerHTML = newHTML;
       }
     });
   }
@@ -135,7 +135,7 @@ class App extends React.Component {
             <Unordered>
               <List><Nav>All</Nav></List>
               <List><Nav>Product Information</Nav></List>
-              <List selected={this.state.selected}><Nav>Customer Q&A's</Nav></List>
+              <List selected={'qna'}><Nav>Customer Q&A's</Nav></List>
               <List><Nav>Customer Reviews</Nav></List>
             </Unordered>
             <FilterQuestion questions={questions}/>
