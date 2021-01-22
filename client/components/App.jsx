@@ -92,7 +92,18 @@ class App extends React.Component {
       return this.emptySearch();
     }
     let data = [...this.state.data];
-    let filtered = data.filter(question => (question.question.includes(val) || question.answer.filter(answer => answer !== null ? answer.text.includes(val) : false)));
+    for (let i = 0; i < data.length; i++) {
+      let ans = '';
+      for (let j = 0; j < data[i].answer.length; j++) {
+        if (data[i].answer[j].text.includes(val)) {
+          ans = data[i].answer[j].text;
+          break;
+        }
+      }
+      data[i].answer[0].text = ans;
+    }
+
+    let filtered = data.filter(question => question.question.includes(val) || question.answer[0].text !== '');
 
     this.setState({
       searchQuery: val,
@@ -138,7 +149,7 @@ class App extends React.Component {
               <List selected={'qna'}><Nav>Customer Q&A's</Nav></List>
               <List><Nav>Customer Reviews</Nav></List>
             </Unordered>
-            <FilterQuestion questions={questions}/>
+            <FilterQuestion query={this.state.searchQuery} questions={questions}/>
           </div>
         }
       </Wrapper>

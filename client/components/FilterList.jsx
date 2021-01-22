@@ -27,8 +27,17 @@ class FilterList extends React.Component {
   }
 
   handleClick() {
+    let val = this.props.query;
     this.setState({
       clicked: !this.state.clicked
+    }, () => {
+      let words = document.querySelectorAll('.question, .answer');
+      let regex = RegExp(val, 'gi');
+      let replace = `<span class="highlight">${val}</span>`;
+      for (let i = 0; i < words.length; i++) {
+        let newHTML = words[i].textContent.replace(regex, replace);
+        words[i].innerHTML = newHTML;
+      }
     });
   }
 
