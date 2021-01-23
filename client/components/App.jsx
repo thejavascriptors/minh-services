@@ -91,19 +91,20 @@ class App extends React.Component {
     if (val === '') {
       return this.emptySearch();
     }
-    let data = [...this.state.data];
+
+    let data = JSON.parse(JSON.stringify(this.state.data));
     for (let i = 0; i < data.length; i++) {
-      let ans = '';
+      let ans = {};
       for (let j = 0; j < data[i].answer.length; j++) {
         if (data[i].answer[j].text.includes(val)) {
-          ans = data[i].answer[j].text;
+          ans = data[i].answer[j];
           break;
         }
       }
-      data[i].answer[0].text = ans;
+      data[i].answer[0] = ans;
     }
 
-    let filtered = data.filter(question => question.question.includes(val) || question.answer[0].text !== '');
+    let filtered = data.filter(question => question.question.includes(val) || question.answer[0].text);
 
     this.setState({
       searchQuery: val,
@@ -122,7 +123,6 @@ class App extends React.Component {
 
   emptySearch(e) {
     const {data} = this.state;
-    console.log(data);
     let newQuestions = data.slice(0, 4);
     $(e).val('');
     this.setState({
