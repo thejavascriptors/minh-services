@@ -10,7 +10,7 @@ const Post = styled.div`
   padding: 10px;
   border-radius: 4px;
   height: 45px;
-  width: 65%;
+  width: 56em;
   background-color: rgb(97, 93, 93, 0.1);
 `;
 

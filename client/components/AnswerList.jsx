@@ -20,20 +20,37 @@ const SeeMore = styled.span`
   }
 `;
 
-const AnswerList = ({answer, answerClick, handleClick}) => (
-  <Answer>
-    <div>
-      {answer.text.length < 222 ? <div>{answer.text}</div> : answerClick ?
-      <div>
-        {answer.text} <SeeMore onClick={e => handleClick()}>see less</SeeMore>
-      </div> :
-      <div>
-        {answer.text.slice(0, 222)}...<SeeMore onClick={e => handleClick()}>see more</SeeMore>
-      </div>}
-    </div>
-    <User>By {answer.username} on {answer.createdAt}</User>
-    <br></br>
-  </Answer>
-);
+class AnswerList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      clicked: false
+    };
+  }
+
+  handleClick() {
+    this.setState({
+      clicked: !this.state.clicked
+    });
+  }
+
+  render() {
+    return (
+      <Answer>
+        <div>
+          {this.props.answer.text.length < 222 ? <div>{this.props.answer.text}</div> : this.state.clicked ?
+          <div>
+            {this.props.answer.text} <SeeMore onClick={e => this.handleClick()}>see less</SeeMore>
+          </div> :
+          <div>
+            {this.props.answer.text.slice(0, 222)}...<SeeMore onClick={e => this.handleClick()}>see more</SeeMore>
+          </div>}
+        </div>
+        <User>By {this.props.answer.username} on {this.props.answer.createdAt}</User>
+        <br></br>
+      </Answer>
+    );
+  }
+}
 
 export default AnswerList;

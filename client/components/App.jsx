@@ -14,12 +14,15 @@ const SeeMoreQuestions = styled.button`
   margin: 10px;
   margin-left: 186px;
   margin-bottom: 30px;
+  position: relative;
+  top: -3rem;
   &:hover {
     cursor: pointer;
   }
-`;
+  `;
 
 const Wrapper = styled.div`
+  display: inline-block;
   border-top: solid 1px rgb(224, 220, 220);
   border-bottom: solid 1px rgb(224, 220, 220);
   font-family: Arial, Helvetica, sans-serif;

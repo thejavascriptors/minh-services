@@ -58,10 +58,6 @@ const Votes = styled.div`
   height: 90px;
 `;
 
-const SeeMoreAnswers = styled.span`
-  display: flex;
-  margin-left: 116px;
-`;
 
 const Collapse = styled.button`
   height: 32px;
@@ -70,6 +66,8 @@ const Collapse = styled.button`
   margin-bottom: 100px;
   border-width: 1px;
   background-color: white;
+  position: relative;
+  top: -3rem;
   &:hover {
     cursor: pointer;
   }
@@ -81,7 +79,7 @@ const Caret = styled.p`
 `;
 
 const Label = styled.label`
-  font-weight: bold;
+font-weight: bold;
 `;
 
 const Question = styled.div`
@@ -97,11 +95,19 @@ const Question = styled.div`
 const QuestionBlock = styled.div`
   display: flex;
   margin: 10px;
+  position: relative;
 `;
 
 const AnswerBlock = styled.div`
   display: flex;
   margin: 10px;
+`;
+
+const SeeMoreAnswers = styled.span`
+  display: flex;
+  margin-left: 116px;
+  position: relative;
+  top: -2rem;
 `;
 
 const Answer = styled.div`
@@ -126,12 +132,10 @@ class QuestionList extends React.Component {
     this.state = {
       answerData: props.question.answer,
       answerRender: props.question.answer.slice(0, 1),
-      answerClick: false,
       vote: props.question.votes,
       collapse: false,
       didVote: 0
     };
-    this.handleClick = this.handleClick.bind(this);
   }
 
   handleAnswer() {
@@ -143,12 +147,6 @@ class QuestionList extends React.Component {
     this.setState({
       answerRender: newAns,
       collapse: true
-    });
-  }
-
-  handleClick() {
-    this.setState({
-      answerClick: !this.state.answerClick
     });
   }
 
@@ -182,7 +180,7 @@ class QuestionList extends React.Component {
           </QuestionBlock>
           <AnswerBlock>
             <Label>Answer: </Label>
-            <Answer>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} answerClick={this.state.answerClick} handleClick={this.handleClick}/>)}</Answer>
+            <Answer>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} />)}</Answer>
           </AnswerBlock>
           <span>
             <SeeMoreAnswers>
