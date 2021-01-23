@@ -3,10 +3,12 @@ import FilterAnswer from './FilterAnswer.jsx';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
+  display: block;
   font-size: 14px;
   padding: 10px;
+  padding-bottom: 0;
   margin-top: 5px;
-  line-height: 1.4;
+  line-height: 20px;
   width: 60%;
 `;
 
@@ -46,7 +48,6 @@ class FilterList extends React.Component {
       <Wrap>
         <Question className='question'>Q: {this.props.question.question}</Question>
         <Answer><b>A: </b><FilterAnswer answer={this.props.question.answer} handleClick={this.handleClick} clicked={this.state.clicked}/></Answer>
-        <br></br>
       </Wrap>
     );
   }

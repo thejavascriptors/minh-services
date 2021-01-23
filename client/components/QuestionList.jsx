@@ -102,8 +102,6 @@ const QuestionBlock = styled.div`
 const AnswerBlock = styled.div`
   display: flex;
   margin: 10px;
-  overflow: hidden;
-  padding: 0;
 `;
 
 const Answer = styled.div`

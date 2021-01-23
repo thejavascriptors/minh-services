@@ -6,8 +6,8 @@ const User = styled.div`
   font-size: 14px;
 `;
 
-const Answer= styled.div`
-  line-height: 1.4;
+const Answer = styled.div`
+  line-height: 20px;
   font-size: 15px;
 `;
 

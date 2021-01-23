@@ -7,8 +7,9 @@ const SearchInput = styled.input`
   padding-left: 25px;
   margin-left: 10px;
   padding-right: 25px;
-  border: 1px solid rgb(0, 0, 0, 0.5);
+  border: 1px solid rgb(32, 32, 32, 0.5);
   border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(15,17,17,.15) inset;
   &:focus {
     border: 1px solid rgb(95, 95, 95);
     box-shadow: 0 2px 2px 1px rgba(107, 224, 224, 0.4);
@@ -27,9 +28,9 @@ const Magnifying = styled.img`
 `;
 
 const Exit = styled.img`
-  position: absolute;
+  position: relative;
   display: inline-block;
-  right: 25em;
+  right: 1em;
   padding-top: 12px;
   height: 8px;
   width: 8px;
