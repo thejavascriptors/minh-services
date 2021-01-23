@@ -1,6 +1,7 @@
 import React from 'react';
 import Search from './Search.jsx';
 import Questions from './Questions.jsx';
+import FilterQuestion from './FilterQuestion.jsx';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -24,14 +25,41 @@ const Wrapper = styled.div`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
+const Unordered = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 14px;
+  border-bottom: solid 1px rgb(224, 220, 220);
+  width: 65%;
+`;
+
+  const List = styled.li`
+  float: left;
+  height: 50px;
+  border-bottom: ${props => props.selected === 'qna' ? '3px solid orange' : null};
+  font-weight: ${props => props.selected === 'qna' ? 'bold' : null};
+  `;
+
+  const Nav = styled.a`
+  text-align: center;
+  display: block;
+  margin: 12px;
+  padding: 12px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       data: [],
       questions: [],
-      filter: [],
-      searchQuery: ''
+      searchQuery: '',
+      view: 'default'
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.emptySearch = this.emptySearch.bind(this);
@@ -60,22 +88,35 @@ class App extends React.Component {
   }
 
   handleSearch(val) {
-    const {data} = this.state;
-    let filtered = data.filter(question => question.question.includes(val));
+    if (val === '') {
+      return this.emptySearch();
+    }
+    let data = [...this.state.data];
+    let filtered = data.filter(question => (question.question.includes(val) || question.answer.filter(answer => answer !== null ? answer.text.includes(val) : false)));
+
     this.setState({
       searchQuery: val,
-      questions: filtered.slice(0, 4),
-      filter: filtered
+      questions: filtered,
+      view: 'search'
+    }, () => {
+      let words = document.querySelectorAll('.question, .answer');
+      let regex = RegExp(val, 'gi');
+      let replace = `<span class="highlight">${val}</span>`;
+      for (let i = 0; i < words.length; i++) {
+        let newHTML = words[i].textContent.replace(regex, replace);
+        words[i].innerHTML = newHTML;
+      }
     });
   }
 
   emptySearch(e) {
     const {data} = this.state;
-    let newQuestions = data.slice(0, 4)
+    let newQuestions = data.slice(0, 4);
     $(e).val('');
     this.setState({
       searchQuery: '',
-      questions: newQuestions
+      questions: newQuestions,
+      view: 'default'
     });
   }
 
@@ -85,8 +126,21 @@ class App extends React.Component {
       <Wrapper>
         <Header>Customer questions & answers</Header>
         <Search handleSearch={this.handleSearch} emptySearch={this.emptySearch} searchQuery={this.state.searchQuery}/>
-        <Questions questions={questions}/>
-        <SeeMoreQuestions onClick={e => this.handleQuestion()}>See more answered questions ({data.length - questions.length})</SeeMoreQuestions>
+        {this.state.view === 'default' ?
+          <div>
+            <Questions questions={questions}/>
+            <SeeMoreQuestions onClick={e => this.handleQuestion()}>See more answered questions ({data.length - questions.length})</SeeMoreQuestions>
+          </div> :
+          <div>
+            <Unordered>
+              <List><Nav>All</Nav></List>
+              <List><Nav>Product Information</Nav></List>
+              <List selected={'qna'}><Nav>Customer Q&A's</Nav></List>
+              <List><Nav>Customer Reviews</Nav></List>
+            </Unordered>
+            <FilterQuestion questions={questions}/>
+          </div>
+        }
       </Wrapper>
     );
   }

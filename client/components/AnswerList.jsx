@@ -23,12 +23,12 @@ const SeeMore = styled.span`
 const AnswerList = ({answer, answerClick, handleClick}) => (
   <Answer>
     <div>
-      {answer.text.length < 200 ? <div>{answer.text}</div> : answerClick ?
+      {answer.text.length < 222 ? <div>{answer.text}</div> : answerClick ?
       <div>
         {answer.text} <SeeMore onClick={e => handleClick()}>see less</SeeMore>
       </div> :
       <div>
-        {answer.text.slice(0, 200)}...<SeeMore onClick={e => handleClick()}>see more</SeeMore>
+        {answer.text.slice(0, 222)}...<SeeMore onClick={e => handleClick()}>see more</SeeMore>
       </div>}
     </div>
     <User>By {answer.username} on {answer.createdAt}</User>
