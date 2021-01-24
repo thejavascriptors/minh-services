@@ -11,6 +11,10 @@ const Questions = styled.div`
   margin: 10px;
   padding: 10px;
   font-size: 14px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 0;
 `;
 
 const DownVote = styled.button`
@@ -63,11 +67,10 @@ const Collapse = styled.button`
   height: 32px;
   margin: 15px;
   margin-left: 116px;
-  margin-bottom: 100px;
-  border-width: 1px;
+  margin-top: 0;
+  border-radius: 1px;
+  border: 1px solid rgb(97, 93, 93, 0.6);
   background-color: white;
-  position: relative;
-  top: -3rem;
   &:hover {
     cursor: pointer;
   }
@@ -79,7 +82,7 @@ const Caret = styled.p`
 `;
 
 const Label = styled.label`
-font-weight: bold;
+  font-weight: bold;
 `;
 
 const Question = styled.div`
@@ -101,18 +104,19 @@ const QuestionBlock = styled.div`
 const AnswerBlock = styled.div`
   display: flex;
   margin: 10px;
+  margin-bottom: 0;
 `;
 
 const SeeMoreAnswers = styled.span`
   display: flex;
   margin-left: 116px;
-  position: relative;
-  top: -2rem;
 `;
 
-const Answer = styled.div`
+const Answers = styled.div`
+  display: inline-flex;
+  flex-flow: column wrap;
+  align-content: space-between;
   margin-left: 48px;
-  float: left;
 `;
 
 const SeeAnswer = styled.p`
@@ -180,7 +184,7 @@ class QuestionList extends React.Component {
           </QuestionBlock>
           <AnswerBlock>
             <Label>Answer: </Label>
-            <Answer>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} />)}</Answer>
+            <Answers>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} />)}</Answers>
           </AnswerBlock>
           <span>
             <SeeMoreAnswers>

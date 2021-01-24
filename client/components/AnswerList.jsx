@@ -47,7 +47,6 @@ class AnswerList extends React.Component {
           </div>}
         </div>
         <User>By {this.props.answer.username} on {this.props.answer.createdAt}</User>
-        <br></br>
       </Answer>
     );
   }

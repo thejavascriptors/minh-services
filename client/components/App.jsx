@@ -13,16 +13,14 @@ const SeeMoreQuestions = styled.button`
   height: 30px;
   margin: 10px;
   margin-left: 186px;
-  margin-bottom: 30px;
-  position: relative;
-  top: -3rem;
+  border: 1px solid rgb(97, 93, 93, 0.6);
+  border-radius: 1px;
   &:hover {
     cursor: pointer;
   }
   `;
 
 const Wrapper = styled.div`
-  display: inline-block;
   border-top: solid 1px rgb(224, 220, 220);
   border-bottom: solid 1px rgb(224, 220, 220);
   font-family: Arial, Helvetica, sans-serif;
@@ -87,6 +85,8 @@ class App extends React.Component {
     }
     this.setState({
       questions: newQuest
+    }, () => {
+      $('html, body').animate({scrollTop: $(document).height()}, 1000);
     });
   }
 
