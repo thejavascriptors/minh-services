@@ -7,6 +7,8 @@ const User = styled.div`
 `;
 
 const Answer = styled.div`
+  display: block;
+  margin-top: 10px;
   line-height: 20px;
   font-size: 15px;
 `;

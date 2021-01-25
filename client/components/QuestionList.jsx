@@ -113,9 +113,7 @@ const SeeMoreAnswers = styled.span`
 `;
 
 const Answers = styled.div`
-  display: inline-flex;
-  flex-flow: column wrap;
-  align-content: space-between;
+  display: block;
   margin-left: 48px;
 `;
 
@@ -130,6 +128,32 @@ const SeeAnswer = styled.p`
   }
 `;
 
+const User = styled.div`
+  color: rgb(97, 93, 93);
+  font-size: 14px;
+  margin-left: 48px;
+`;
+
+const Answer = styled.div`
+  display: flex;
+  flex-direction: column;
+  line-height: 20px;
+  font-size: 15px;
+`;
+
+const SeeMore = styled.span`
+  color: rgb(24, 114, 156);
+  margin-left: 5px;
+  &:hover {
+    cursor: pointer;
+    color: orange;
+  }
+`;
+
+const First = styled.div`
+  margin-left: 48px;
+`;
+
 class QuestionList extends React.Component {
   constructor(props) {
     super(props);
@@ -138,7 +162,8 @@ class QuestionList extends React.Component {
       answerRender: props.question.answer.slice(0, 1),
       vote: props.question.votes,
       collapse: false,
-      didVote: 0
+      didVote: 0,
+      clicked: false
     };
   }
 
@@ -173,6 +198,12 @@ class QuestionList extends React.Component {
       .catch(err => console.error(err));
   }
 
+  handleClick() {
+    this.setState({
+      clicked: !this.state.clicked
+    });
+  }
+
   render() {
     const {vote, answerData, answerRender} = this.state;
     return (
@@ -184,7 +215,19 @@ class QuestionList extends React.Component {
           </QuestionBlock>
           <AnswerBlock>
             <Label>Answer: </Label>
-            <Answers>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} />)}</Answers>
+            <Answer>
+              <First>
+                {this.state.answerRender[0].text.length < 222 ? <div>{this.state.answerRender[0].text}</div> : this.state.clicked ?
+                <div>
+                  {this.state.answerRender[0].text} <SeeMore onClick={e => this.handleClick()}>see less</SeeMore>
+                </div> :
+                <div>
+                  {this.state.answerRender[0].text.slice(0, 222)}...<SeeMore onClick={e => this.handleClick()}>see more</SeeMore>
+                </div>}
+              </First>
+              <User>By {this.state.answerRender[0].username} on {this.state.answerRender[0].createdAt}</User>
+              {this.state.answerRender.length > 1 ? <Answers>{answerRender.slice(1).map(answer => <AnswerList key={answer._id} answer={answer} />)}</Answers> : null}
+            </Answer>
           </AnswerBlock>
           <span>
             <SeeMoreAnswers>
