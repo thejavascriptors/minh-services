@@ -40,7 +40,7 @@ const FilterAnswer = ({answer, handleClick, clicked}) => (
         <span className='answer'>{answer[0].text}</span> <SeeMore onClick={e => handleClick()}>see less</SeeMore>
       </span> :
       <span>
-        <span className='answer'>{answer[0].text.slice(0, 222)}</span>...<SeeMore onClick={e => handleClick()}>see more</SeeMore>
+        <span className='answer'>{answer[0].text.slice(0, 222)}</span>...<SeeMore onClick={e => handleClick(answer[0].text)}>see more</SeeMore>
       </span>}
     <User>By <Name>{answer[0].username}</Name> on {answer[0].createdAt}</User>
     <SeeOther>See other answers</SeeOther>

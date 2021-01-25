@@ -10,7 +10,7 @@ const Post = styled.div`
   padding: 10px;
   border-radius: 4px;
   height: 45px;
-  width: 65%;
+  width: 56em;
   background-color: rgb(97, 93, 93, 0.1);
 `;
 
@@ -37,9 +37,9 @@ const NoMatches = styled.div`
   font-size: 14px;
 `;
 
-const FilterQuestion = ({questions}) => (
+const FilterQuestion = ({questions, query}) => (
   <div>
-    {questions.length > 0 ? questions.map(question => <FilterList key={question._id} question={question}/>) : <NoMatches>There were 0 results in Customer Questions & Answers.</NoMatches>}
+    {questions.length > 0 ? questions.map(question => <FilterList key={question._id} question={question} query={query}/>) : <NoMatches>There were 0 results in Customer Questions & Answers.</NoMatches>}
     <br></br>
     <Post>
       <Bold>Don't see the answer you're looking for?</Bold>

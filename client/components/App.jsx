@@ -13,11 +13,12 @@ const SeeMoreQuestions = styled.button`
   height: 30px;
   margin: 10px;
   margin-left: 186px;
-  margin-bottom: 30px;
+  border: 1px solid rgb(97, 93, 93, 0.6);
+  border-radius: 1px;
   &:hover {
     cursor: pointer;
   }
-`;
+  `;
 
 const Wrapper = styled.div`
   border-top: solid 1px rgb(224, 220, 220);
@@ -84,6 +85,8 @@ class App extends React.Component {
     }
     this.setState({
       questions: newQuest
+    }, () => {
+      $('html, body').animate({scrollTop: $(document).height()}, 1000);
     });
   }
 
@@ -91,8 +94,20 @@ class App extends React.Component {
     if (val === '') {
       return this.emptySearch();
     }
-    let data = [...this.state.data];
-    let filtered = data.filter(question => (question.question.includes(val) || question.answer.filter(answer => answer !== null ? answer.text.includes(val) : false)));
+
+    let data = JSON.parse(JSON.stringify(this.state.data));
+    for (let i = 0; i < data.length; i++) {
+      let ans = {};
+      for (let j = 0; j < data[i].answer.length; j++) {
+        if (data[i].answer[j].text.includes(val)) {
+          ans = data[i].answer[j];
+          break;
+        }
+      }
+      data[i].answer[0] = ans;
+    }
+
+    let filtered = data.filter(question => question.question.includes(val) || question.answer[0].text);
 
     this.setState({
       searchQuery: val,
@@ -138,7 +153,7 @@ class App extends React.Component {
               <List selected={'qna'}><Nav>Customer Q&A's</Nav></List>
               <List><Nav>Customer Reviews</Nav></List>
             </Unordered>
-            <FilterQuestion questions={questions}/>
+            <FilterQuestion query={this.state.searchQuery} questions={questions}/>
           </div>
         }
       </Wrapper>

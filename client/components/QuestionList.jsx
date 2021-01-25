@@ -7,10 +7,14 @@ const Questions = styled.div`
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
-  width: 60%;
+  width: 58em;
   margin: 10px;
   padding: 10px;
   font-size: 14px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 0;
 `;
 
 const DownVote = styled.button`
@@ -26,6 +30,7 @@ const DownVote = styled.button`
   background-color: white;
   &:hover {
     cursor: pointer;
+    border-top: 15px solid rgb(233, 110, 10);
   }
 `;
 
@@ -37,11 +42,12 @@ const UpVote = styled.button`
   margin-left: 8px;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 15px solid rgb(126, 123, 123);
+  border-bottom: 15px solid rgb(126, 123, 123, 1.5);
   border-top: none;
   background-color: white;
   &:hover {
     cursor: pointer;
+    border-bottom: 15px solid rgb(233, 110, 10);
   }
 `;
 
@@ -56,17 +62,14 @@ const Votes = styled.div`
   height: 90px;
 `;
 
-const SeeMoreAnswers = styled.div`
-  display: flex;
-  margin-left: 116px;
-`;
 
 const Collapse = styled.button`
   height: 32px;
   margin: 15px;
   margin-left: 116px;
-  margin-bottom: 100px;
-  border-width: 1px;
+  margin-top: 0;
+  border-radius: 1px;
+  border: 1px solid rgb(97, 93, 93, 0.6);
   background-color: white;
   &:hover {
     cursor: pointer;
@@ -95,16 +98,23 @@ const Question = styled.div`
 const QuestionBlock = styled.div`
   display: flex;
   margin: 10px;
+  position: relative;
 `;
 
 const AnswerBlock = styled.div`
   display: flex;
   margin: 10px;
+  margin-bottom: 0;
 `;
 
-const Answer = styled.div`
+const SeeMoreAnswers = styled.span`
+  display: flex;
+  margin-left: 116px;
+`;
+
+const Answers = styled.div`
+  display: block;
   margin-left: 48px;
-  float: left;
 `;
 
 const SeeAnswer = styled.p`
@@ -118,17 +128,43 @@ const SeeAnswer = styled.p`
   }
 `;
 
+const User = styled.div`
+  color: rgb(97, 93, 93);
+  font-size: 14px;
+  margin-left: 48px;
+`;
+
+const Answer = styled.div`
+  display: flex;
+  flex-direction: column;
+  line-height: 20px;
+  font-size: 15px;
+`;
+
+const SeeMore = styled.span`
+  color: rgb(24, 114, 156);
+  margin-left: 5px;
+  &:hover {
+    cursor: pointer;
+    color: orange;
+  }
+`;
+
+const First = styled.div`
+  margin-left: 48px;
+`;
+
 class QuestionList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       answerData: props.question.answer,
       answerRender: props.question.answer.slice(0, 1),
-      answerClick: false,
       vote: props.question.votes,
-      collapse: false
+      collapse: false,
+      didVote: 0,
+      clicked: false
     };
-    this.handleClick = this.handleClick.bind(this);
   }
 
   handleAnswer() {
@@ -143,12 +179,6 @@ class QuestionList extends React.Component {
     });
   }
 
-  handleClick() {
-    this.setState({
-      answerClick: !this.state.answerClick
-    });
-  }
-
   handleCollapse() {
     this.setState({
       answerRender: this.props.question.answer.slice(0, 1),
@@ -157,13 +187,21 @@ class QuestionList extends React.Component {
   }
 
   handleVote(vote) {
+    if (this.state.didVote + vote > 1 || this.state.didVote + vote < -1) return;
     axios.patch(`/api/questions/:${this.props.question._id}/question`, {
       data: vote
     })
       .then(res => this.setState({
-        vote: res.data.votes
+        vote: res.data.votes,
+        didVote: this.state.didVote + vote
       }))
       .catch(err => console.error(err));
+  }
+
+  handleClick() {
+    this.setState({
+      clicked: !this.state.clicked
+    });
   }
 
   render() {
@@ -177,15 +215,27 @@ class QuestionList extends React.Component {
           </QuestionBlock>
           <AnswerBlock>
             <Label>Answer: </Label>
-            <Answer>{answerRender.map(answer => <AnswerList key={answer._id} answer={answer} answerClick={this.state.answerClick} handleClick={this.handleClick}/>)}</Answer>
+            <Answer>
+              <First>
+                {this.state.answerRender[0].text.length < 222 ? <div>{this.state.answerRender[0].text}</div> : this.state.clicked ?
+                <div>
+                  {this.state.answerRender[0].text} <SeeMore onClick={e => this.handleClick()}>see less</SeeMore>
+                </div> :
+                <div>
+                  {this.state.answerRender[0].text.slice(0, 222)}...<SeeMore onClick={e => this.handleClick()}>see more</SeeMore>
+                </div>}
+              </First>
+              <User>By {this.state.answerRender[0].username} on {this.state.answerRender[0].createdAt}</User>
+              {this.state.answerRender.length > 1 ? <Answers>{answerRender.slice(1).map(answer => <AnswerList key={answer._id} answer={answer} />)}</Answers> : null}
+            </Answer>
           </AnswerBlock>
-          <div>
+          <span>
             <SeeMoreAnswers>
               <Caret>&lsaquo;</Caret>
               <SeeAnswer onClick={e => this.handleAnswer()}>See more answers ({answerData.length - answerRender.length})</SeeAnswer>
             </SeeMoreAnswers>
             {this.state.collapse ? <Collapse onClick={e => this.handleCollapse()}>Collapse all answers</Collapse> : null}
-          </div>
+          </span>
         </div>
         <Votes>
           <UpVote onClick={e => this.handleVote(1)}></UpVote>
