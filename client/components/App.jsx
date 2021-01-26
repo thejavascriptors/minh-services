@@ -67,7 +67,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios('/api/questions')
+    axios('http://localhost:1337/api/questions')
       .then(data => {
         data = data.data.sort((a, b) => b.votes - a.votes);
         this.setState({
@@ -85,8 +85,8 @@ class App extends React.Component {
     }
     this.setState({
       questions: newQuest
-    }, () => {
-      $('html, body').animate({scrollTop: $(document).height()}, 1000);
+    // }, () => {
+    //   $('html, body').animate({scrollTop: $(document).height()}, 1000);
     });
   }
 

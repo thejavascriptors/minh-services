@@ -188,7 +188,7 @@ class QuestionList extends React.Component {
 
   handleVote(vote) {
     if (this.state.didVote + vote > 1 || this.state.didVote + vote < -1) return;
-    axios.patch(`/api/questions/:${this.props.question._id}/question`, {
+    axios.patch(`http://localhost:1337/api/questions/:${this.props.question._id}/question`, {
       data: vote
     })
       .then(res => this.setState({
