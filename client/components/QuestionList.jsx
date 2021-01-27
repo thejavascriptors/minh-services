@@ -2,6 +2,7 @@ import React from 'react';
 import AnswerList from './AnswerList.jsx';
 import axios from 'axios';
 import styled from 'styled-components';
+import $ from 'jquery';
 
 const Questions = styled.div`
   display: flex;

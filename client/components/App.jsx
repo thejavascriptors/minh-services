@@ -4,6 +4,7 @@ import Questions from './Questions.jsx';
 import FilterQuestion from './FilterQuestion.jsx';
 import axios from 'axios';
 import styled from 'styled-components';
+import $ from 'jquery';
 
 const Header = styled.h2`
   margin-left: 10px;
