@@ -176,6 +176,8 @@ class QuestionList extends React.Component {
     this.setState({
       answerRender: newAns,
       collapse: true
+    }, () => {
+      $('html, body').animate({scrollTop: $(window).scrollTop() + 200}, 1000);
     });
   }
 

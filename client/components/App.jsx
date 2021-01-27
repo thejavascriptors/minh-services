@@ -85,8 +85,8 @@ class App extends React.Component {
     }
     this.setState({
       questions: newQuest
-    // }, () => {
-    //   $('html, body').animate({scrollTop: $(document).height()}, 1000);
+    }, () => {
+      $('html, body').animate({scrollTop: $('#minh').height() + 400}, 1000);
     });
   }
 
