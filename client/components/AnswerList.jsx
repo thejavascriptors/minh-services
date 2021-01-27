@@ -18,7 +18,7 @@ const SeeMore = styled.span`
   margin-left: 5px;
   &:hover {
     cursor: pointer;
-    color: orange;
+    color: rgb(194, 87, 38);
   }
 `;
 
@@ -40,12 +40,12 @@ class AnswerList extends React.Component {
     return (
       <Answer>
         <div>
-          {this.props.answer.text.length < 222 ? <div>{this.props.answer.text}</div> : this.state.clicked ?
+          {this.props.answer.text.length < 200 ? <div>{this.props.answer.text}</div> : this.state.clicked ?
           <div>
             {this.props.answer.text} <SeeMore onClick={e => this.handleClick()}>see less</SeeMore>
           </div> :
           <div>
-            {this.props.answer.text.slice(0, 222)}...<SeeMore onClick={e => this.handleClick()}>see more</SeeMore>
+            {this.props.answer.text.slice(0, 200)}...<SeeMore onClick={e => this.handleClick()}>see more</SeeMore>
           </div>}
         </div>
         <User>By {this.props.answer.username} on {this.props.answer.createdAt}</User>

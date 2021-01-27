@@ -91,7 +91,7 @@ const Question = styled.div`
   &:hover {
     cursor: pointer;
     text-decoration: underline;
-    color: orange;
+    color: rgb(194, 87, 38);
   }
 `;
 
@@ -124,7 +124,7 @@ const SeeAnswer = styled.p`
   &:hover {
     cursor: pointer;
     text-decoration: underline;
-    color: orange;
+    color: rgb(194, 87, 38);
   }
 `;
 
@@ -146,7 +146,7 @@ const SeeMore = styled.span`
   margin-left: 5px;
   &:hover {
     cursor: pointer;
-    color: orange;
+    color: rgb(194, 87, 38);
   }
 `;
 

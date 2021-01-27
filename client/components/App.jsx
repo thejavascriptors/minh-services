@@ -99,6 +99,7 @@ class App extends React.Component {
     for (let i = 0; i < data.length; i++) {
       let ans = {};
       for (let j = 0; j < data[i].answer.length; j++) {
+        if (!data[i].answer[j]) continue;
         if (data[i].answer[j].text.includes(val)) {
           ans = data[i].answer[j];
           break;
