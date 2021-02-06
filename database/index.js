@@ -1,5 +1,8 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/questions', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
-const db = mongoose.connection;
+const Sequelize = require('sequelize');
 
-module.exports = db;
+// Creates connection to mysql db using sequelize
+module.exports = new Sequelize('QandA', 'postgres', 'postgres', {
+  host: 'localhost',
+  dialect: 'postgres',
+  logging: false,
+});
