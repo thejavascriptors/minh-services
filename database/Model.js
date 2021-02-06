@@ -1,14 +1,17 @@
 const Sequelize = require('sequelize');
 const db = require('./index.js');
 
+// Definition of a Primary key id
+const id = {
+  allowNull: false,
+  autoIncrement: true,
+  primaryKey: true,
+  type: Sequelize.INTEGER,
+};
+
 // Defines items table
 const Items = db.define('items', {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: Sequelize.INTEGER,
-  },
+  id,
   name: Sequelize.STRING,
 },
 {
@@ -17,12 +20,7 @@ const Items = db.define('items', {
 
 // Defines users table
 const Users = db.define('users', {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: Sequelize.INTEGER,
-  },
+  id,
   username: Sequelize.STRING,
 },
 {
@@ -31,12 +29,7 @@ const Users = db.define('users', {
 
 // Defines questions table
 const Questions = db.define('questions', {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: Sequelize.INTEGER,
-  },
+  id,
   itemId: {
     type: Sequelize.INTEGER,
     onDelete: 'CASCADE',
@@ -73,12 +66,7 @@ const Questions = db.define('questions', {
 
 // Defines answers table
 const Answers = db.define('answers', {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: Sequelize.INTEGER
-  },
+  id,
   questionId: {
     type: Sequelize.INTEGER,
     onDelete: 'CASCADE',
@@ -112,13 +100,6 @@ const Answers = db.define('answers', {
   ],
   timestamps: false
 });
-
-// Questions.belongsTo(Items, { as: 'item' });
-// Questions.belongsTo(Users, { as: 'user' });
-// Answers.belongsTo(Questions, { as: 'question' });
-// Answers.belongsTo(Users, { as: 'user' });
-
-// queryInterface.addIndex('Questions', ['itemId'], )
 
 module.exports = {
   Items,

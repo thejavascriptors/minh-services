@@ -2,7 +2,6 @@ const db = require('./index');
 const faker = require('faker');
 const Sequelize = require('sequelize');
 const { createObjectCsvWriter } = require('csv-writer');
-const { performance } = require('perf_hooks');
 const {
   Items,
   Users,
@@ -26,16 +25,16 @@ const {
 
 const seed = async () => {
 
-  let start = performance.now();
+  let start = console.time();
 
-  await Answers.drop();
-  await Questions.drop();
-  await Users.drop();
-  await Items.drop();
-  await Items.sync();
-  await Users.sync();
-  await Questions.sync();
-  await Answers.sync();
+  [Answers, Questions, Users, Items].forEach(async (Model) => {
+    await Model.drop()
+      .catch((err) => { console.error(err); })
+  });
+  [Items, Users, Questions, Answers].forEach(async (Model) => {
+    await Model.sync()
+      .catch((err) => { console.error(err); })
+  });
 
   const createItemsObjectArray = async () => {
     var list = [];
@@ -67,7 +66,7 @@ const seed = async () => {
         .catch((err) => { console.error(err) })
 
       // Copies CSV file to DB
-      db.query(`COPY items ("id", "name") FROM '/home/robeusanio11/minh-services/database/CSVs/items${j}.csv' DELIMITER ',' CSV HEADER;`)
+      db.query(`COPY items ("id", "name") FROM '${__dirname}/CSVs/items${j}.csv' DELIMITER ',' CSV HEADER;`)
         .catch((err) => {
           console.error('SECOND CATCH:', err);
         })
@@ -106,7 +105,7 @@ const seed = async () => {
       .catch((err) => { console.error(err) })
 
     // Copies CSV file to DB
-    await db.query(`COPY users ("id", "username") FROM '/home/robeusanio11/minh-services/database/CSVs/users0.csv' DELIMITER ',' CSV HEADER;`)
+    await db.query(`COPY users ("id", "username") FROM '${__dirname}/CSVs/users0.csv' DELIMITER ',' CSV HEADER;`)
       .catch((err) => { console.error(err) })
 
     list = [];
@@ -152,7 +151,7 @@ const seed = async () => {
         .catch((err) => { console.error(err) })
 
       // Copies CSV file to DB
-      await db.query(`COPY questions("id", "itemId", "userId", "question", "rating", "createdAt") FROM '/home/robeusanio11/minh-services/database/CSVs/questions${j}.csv' DELIMITER ',' CSV HEADER;`)
+      await db.query(`COPY questions("id", "itemId", "userId", "question", "rating", "createdAt") FROM '${__dirname}/CSVs/questions${j}.csv' DELIMITER ',' CSV HEADER;`)
         .catch((err) => { console.error(err) })
 
       // Prepares min/max/list for next 1,000,000 records
@@ -203,7 +202,7 @@ const seed = async () => {
         .catch((err) => { console.error(err) })
 
       // Copies CSV file to DB
-      await db.query(`COPY answers ("id", "questionId", "userId", "answer", "createdAt", "rating") FROM '/home/robeusanio11/minh-services/database/CSVs/answers${j}.csv' DELIMITER ',' CSV HEADER;`)
+      await db.query(`COPY answers ("id", "questionId", "userId", "answer", "createdAt", "rating") FROM '${__dirname}/CSVs/answers${j}.csv' DELIMITER ',' CSV HEADER;`)
         .catch((err) => { console.error(err) })
 
       // Prepares min/max/list for next iteration
@@ -220,7 +219,7 @@ const seed = async () => {
   await createQuestionsObjectArray();
   await createAnswersObjectArray();
 
-  let end = performance.now()
+  let end = console.time()
   console.log(`it took ${Math.floor((end - start)/1000)} seconds to create and seed all data`);
 }
 
